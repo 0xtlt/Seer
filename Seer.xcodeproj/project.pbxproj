@@ -29,6 +29,9 @@
 		47ED470F29199AD700C087FC /* FollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ED470E29199AD700C087FC /* FollowingView.swift */; };
 		47ED47112919A78000C087FC /* UserProfileListViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ED47102919A78000C087FC /* UserProfileListViewRow.swift */; };
 		47ED47132919A92900C087FC /* FollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ED47122919A92900C087FC /* FollowersView.swift */; };
+		47ED4715291A91BB00C087FC /* NostrRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ED4714291A91BB00C087FC /* NostrRelay.swift */; };
+		47ED4717291ABF8800C087FC /* EmbededVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ED4716291ABF8800C087FC /* EmbededVideoView.swift */; };
+		47ED471A291AC87900C087FC /* AZVideoPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 47ED4719291AC87900C087FC /* AZVideoPlayer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +54,8 @@
 		47ED470E29199AD700C087FC /* FollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingView.swift; sourceTree = "<group>"; };
 		47ED47102919A78000C087FC /* UserProfileListViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileListViewRow.swift; sourceTree = "<group>"; };
 		47ED47122919A92900C087FC /* FollowersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersView.swift; sourceTree = "<group>"; };
+		47ED4714291A91BB00C087FC /* NostrRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NostrRelay.swift; sourceTree = "<group>"; };
+		47ED4716291ABF8800C087FC /* EmbededVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbededVideoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,7 @@
 				4781F38E2912E4AD00842EC9 /* SDWebImageSwiftUI in Frameworks */,
 				474A71392912D0B800A2E6F9 /* RealmSwift in Frameworks */,
 				474A71372912D0B800A2E6F9 /* Realm in Frameworks */,
+				47ED471A291AC87900C087FC /* AZVideoPlayer in Frameworks */,
 				47ED47092915C83700C087FC /* SimpleToast in Frameworks */,
 				4781F3912912E58D00842EC9 /* SDWebImageSVGCoder in Frameworks */,
 			);
@@ -98,6 +104,7 @@
 				473A1FCD290EBE1D00363E2D /* Seer.entitlements */,
 				473A1FC7290EBE1C00363E2D /* SeerApp.swift */,
 				473A1FD6290EC0F600363E2D /* NostrData.swift */,
+				47ED4714291A91BB00C087FC /* NostrRelay.swift */,
 				473A1FDB290ED58D00363E2D /* Extensions.swift */,
 				47ED47032915AB4700C087FC /* ViewModifiers.swift */,
 				47ED470A2915E3D700C087FC /* Navigation.swift */,
@@ -139,6 +146,7 @@
 				47ED470E29199AD700C087FC /* FollowingView.swift */,
 				47ED47102919A78000C087FC /* UserProfileListViewRow.swift */,
 				47ED47122919A92900C087FC /* FollowersView.swift */,
+				47ED4716291ABF8800C087FC /* EmbededVideoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,6 +174,7 @@
 				4781F3902912E58D00842EC9 /* SDWebImageSVGCoder */,
 				47ED46FE29156BE900C087FC /* NostrKit */,
 				47ED47082915C83700C087FC /* SimpleToast */,
+				47ED4719291AC87900C087FC /* AZVideoPlayer */,
 			);
 			productName = Seer;
 			productReference = 473A1FC4290EBE1C00363E2D /* Seer.app */;
@@ -201,6 +210,7 @@
 				4781F38F2912E58D00842EC9 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				47ED46FD29156BE900C087FC /* XCRemoteSwiftPackageReference "NostrKit" */,
 				47ED47072915C83700C087FC /* XCRemoteSwiftPackageReference "SimpleToast" */,
+				47ED4718291AC87900C087FC /* XCRemoteSwiftPackageReference "AZVideoPlayer" */,
 			);
 			productRefGroup = 473A1FC5290EBE1C00363E2D /* Products */;
 			projectDirPath = "";
@@ -237,10 +247,12 @@
 				47ED470F29199AD700C087FC /* FollowingView.swift in Sources */,
 				474A713E2912D4EA00A2E6F9 /* RTextNote.swift in Sources */,
 				47ED47112919A78000C087FC /* UserProfileListViewRow.swift in Sources */,
+				47ED4717291ABF8800C087FC /* EmbededVideoView.swift in Sources */,
 				47ED47132919A92900C087FC /* FollowersView.swift in Sources */,
 				47ED470B2915E3D700C087FC /* Navigation.swift in Sources */,
 				473A1FDC290ED58D00363E2D /* Extensions.swift in Sources */,
 				474A713C2912D42F00A2E6F9 /* RUserProfile.swift in Sources */,
+				47ED4715291A91BB00C087FC /* NostrRelay.swift in Sources */,
 				47ED470D2917018000C087FC /* RContactList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +511,14 @@
 				kind = branch;
 			};
 		};
+		47ED4718291AC87900C087FC /* XCRemoteSwiftPackageReference "AZVideoPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamzarn/AZVideoPlayer.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -531,6 +551,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 47ED47072915C83700C087FC /* XCRemoteSwiftPackageReference "SimpleToast" */;
 			productName = SimpleToast;
+		};
+		47ED4719291AC87900C087FC /* AZVideoPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47ED4718291AC87900C087FC /* XCRemoteSwiftPackageReference "AZVideoPlayer" */;
+			productName = AZVideoPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

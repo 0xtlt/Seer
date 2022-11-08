@@ -25,6 +25,7 @@ struct UserProfileListViewRow: View {
                         )
                 }
                 .resizable()
+                .aspectRatio(contentMode: .fill)
                 .background(
                     Color.secondary.opacity(0.2)
                 )
@@ -47,8 +48,8 @@ struct UserProfileListViewRow: View {
                     .foregroundColor(.secondary)
                 }
                 
-                if let about = userProfile.about, !about.isEmpty, let markdown = try? AttributedString(markdown: about) {
-                    Text(markdown)
+                if let about = userProfile.aboutFormatted {
+                    Text(about)
                         .multilineTextAlignment(.leading)
                         .lineLimit(2)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -76,12 +77,9 @@ struct UserProfileNavigationTitle: View {
                         )
                 }
                 .resizable()
+                .aspectRatio(contentMode: .fill)
                 .background(
                     Color.secondary.opacity(0.2)
-                        .overlay(
-                            Image(systemName: "person.fill")
-                                .imageScale(.small)
-                        )
                 )
                 .frame(width: 25, height: 25)
                 .cornerRadius(4)

@@ -41,12 +41,9 @@ struct ProfileDetailView: View {
                                     )
                             }
                             .resizable()
+                            .aspectRatio(contentMode: .fill)
                             .background(
                                 Color.secondary.opacity(0.2)
-                                    .overlay(
-                                        Image(systemName: "person.fill")
-                                            .imageScale(.large)
-                                    )
                             )
                             .frame(width: 60, height: 60)
                             .cornerRadius(8)
@@ -69,9 +66,6 @@ struct ProfileDetailView: View {
                     
                     Spacer(minLength: 16)
                     
-//                    Divider()
-//                        .padding(.vertical, 4)
-                    
                     HStack {
                         Button(action: {}) {
                             Text("Follow")
@@ -85,20 +79,16 @@ struct ProfileDetailView: View {
                         Spacer()
                     }
                     .padding(.leading, 72)
-
-                    if let about = userProfile.about, !about.isEmpty, let markdown = try? AttributedString(markdown: about) {
-                        
+                    
+                    if let about = userProfile.aboutFormatted {
                         Spacer(minLength: 16)
-//                        Divider()
-//                            .padding(.vertical, 4)
                         
-                        Text(markdown)
+                        Text(about)
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                             .font(.body)
                     }
 
-    
                     Divider()
                         .padding(.vertical, 4)
 
@@ -188,6 +178,5 @@ struct ProfileDetailView_Previews: PreviewProvider {
                 .environmentObject(NostrData.shared)
                 .environmentObject(Navigation())
         }
-        
     }
 }

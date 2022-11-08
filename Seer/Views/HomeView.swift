@@ -7,6 +7,8 @@
 
 import SwiftUI
 import RealmSwift
+import AVKit
+import AZVideoPlayer
 
 struct HomeView: View {
     
@@ -174,6 +176,7 @@ struct TextNoteListView: View {
                             )
                     }
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .background(
                         Color.secondary.opacity(0.2)
                     )
@@ -214,8 +217,66 @@ struct TextNoteListView: View {
             Divider()
                 .padding(.vertical, 4)
             
-            if let markdown = try? AttributedString(markdown: textNote.content) {
-                Text(markdown)
+            if let content = textNote.contentFormatted {
+                
+//                VStack(spacing: 0) {
+//
+//                    Rectangle()
+//                        .frame(height: 200)
+//                    HStack {
+//                        Image(systemName: "rectangle.and.hand.point.up.left.fill")
+//                            .font(.body)
+//                            .fontWeight(.regular)
+//                        Text("Tap Image to watch video")
+//                        //Spacer()
+//                    }
+//                    .font(.caption)
+//                    .fontWeight(.bold)
+//                    .padding(8)
+//
+//                }
+//                .background(.secondary.opacity(0.3))
+//                .cornerRadius(8)
+                
+                if let videoUrl = textNote.videoUrl {
+                    
+                    VStack(spacing: 0) {
+                        AZVideoPlayer(player: AVPlayer(url: videoUrl))
+                            .frame(height: 200)
+                            .shadow(radius: 0)
+                        HStack {
+                            Image(systemName: "rectangle.and.hand.point.up.left.fill")
+                                .font(.body)
+                                .fontWeight(.regular)
+                            Text("Tap Image to watch video")
+                            //Spacer()
+                        }
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .padding(8)
+                    }
+                    .background(.secondary.opacity(0.3))
+                    .cornerRadius(8)
+                    
+                } else if let imageUrl = textNote.imageUrl {
+                    VStack {
+                        AnimatedImage(url: imageUrl)
+                            .placeholder {
+                                Color.secondary.opacity(0.2)
+                                    .overlay(
+                                        Image(systemName: "photo")
+                                            .imageScale(.large)
+                                            .scaleEffect(3.0)
+                                    )
+                            }
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .scaledToFit()
+                            .cornerRadius(8)
+                    }
+                }
+                                
+                Text(content)
                     .font(.body)
             }
             

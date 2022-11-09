@@ -318,6 +318,7 @@ class NostrRelay: NSObject {
                         textNote.userProfile = RUserProfile.createEmpty(withPublicKey: event.publicKey)
                     }
                     
+                    
 
 //                    if let reply = event.tags.first(where: { $0.id == "e" }), reply.otherInformation.count == 3 {
 //                        let first = reply.otherInformation.first!

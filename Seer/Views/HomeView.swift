@@ -26,6 +26,7 @@ struct HomeView: View {
                                                     ascending: false)) var textNoteResults
     
     var textNotes: [TextNoteVM] {
+        print(textNoteResults.count)
         return Array(textNoteResults)//Array(textNoteResults.filter("createdAt > %@", date).prefix(100))
     }
 
@@ -44,6 +45,8 @@ struct HomeView: View {
                 List {
                     ForEach(textNotes) { textNote in
                         TextNoteListView(textNote: textNote)
+                            .padding()
+                            .cardStyle()
                             .id(textNote.id)
                     }
                 }
@@ -52,6 +55,8 @@ struct HomeView: View {
                 .background(Color(UIColor.systemGroupedBackground))
                 #endif
                 .listStyle(.plain)
+                .background(.orange)
+                .scrollContentBackground(.hidden)
                 .navigationTitle(textNotesFilter.rawValue)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: Navigation.NavUserProfile.self) { nav in
@@ -292,8 +297,6 @@ struct TextNoteListView: View {
             .foregroundColor(.secondary)
             
         }
-        .padding()
-        .cardStyle()
+
     }
 }
-

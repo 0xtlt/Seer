@@ -1,7 +1,15 @@
 # Seer
 Nostr SwiftUI Client
 
-Building this for fun. Use at your own risk!
+Building this on my own time as of now.
+
+Right now its only a reader. Working on adding ability to create account, import account, DM, etc.
+
+Here some inital screenshots of the design.
+
+<img src="Screenshots/screenshot_light_01.png" alt="drawing" width="200"/><img src="Screenshots/screenshot_light_02.png" alt="drawing" width="200"/><img src="Screenshots/screenshot_light_03.png" alt="drawing" width="200"/>
+
+<img src="Screenshots/screenshot_dark_01.png" alt="drawing" width="200"/><img src="Screenshots/screenshot_dark_02.png" alt="drawing" width="200"/><img src="Screenshots/screenshot_dark_03.png" alt="drawing" width="200"/>
 
 # License
 MIT License

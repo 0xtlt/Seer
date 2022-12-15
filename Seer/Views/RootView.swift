@@ -6,11 +6,21 @@
 //
 
 import SwiftUI
+import RealmSwift
+import NostrKit
 
 struct RootView: View {
     
     @EnvironmentObject var nostrData: NostrData
     @State private var selection = 0
+    
+    @ObservedResults(TextNoteVM.self,
+                     sortDescriptor: SortDescriptor(keyPath: "createdAt",
+                                                    ascending: false)) var textNoteResults
+    
+    var newTextNotes: [TextNoteVM] {
+        return Array(textNoteResults.filter("createdAt > %@", nostrData.lastSeenDate))
+    }
     
     var selectionHandler: Binding<Int> { Binding(
         get: { self.selection },
@@ -32,7 +42,7 @@ struct RootView: View {
                     Image(systemName: "house")
                 }
                 .tag(0)
-//                .badge(appState.updatedPosts.count)
+                .badge(newTextNotes.count)
 
             Text("Messages")
                 .tabItem {

@@ -11,12 +11,19 @@ import RealmSwift
 
 class NostrData: ObservableObject {
 
+    static let lastSeenDefaultsKey = "lastSeenDefaultsKey"
+    @Published var lastSeenDate = Date(timeIntervalSince1970: Double(UserDefaults.standard.integer(forKey: NostrData.lastSeenDefaultsKey)))
+    
     var nostrRelays: [NostrRelay] = []
     
     let realm: Realm
     static let shared = NostrData()
     
     private init() {
+        if UserDefaults.standard.integer(forKey: NostrData.lastSeenDefaultsKey) == 0 {
+            UserDefaults.standard.setValue(Timestamp(date: Date.now).timestamp, forKey: NostrData.lastSeenDefaultsKey)
+            self.lastSeenDate = Date(timeIntervalSince1970: Double(UserDefaults.standard.integer(forKey: NostrData.lastSeenDefaultsKey)))
+        }
         let config = Realm.Configuration(schemaVersion: 7)
         Realm.Configuration.defaultConfiguration = config
         self.realm = try! Realm()
@@ -57,5 +64,10 @@ class NostrData: ObservableObject {
         for relay in nostrRelays {
             relay.subscribeContactList(forPublicKey: publicKey)
         }
+    }
+    
+    func updateLastSeenDate() {
+        UserDefaults.standard.setValue(Timestamp(date: Date.now).timestamp, forKey: NostrData.lastSeenDefaultsKey)
+        self.lastSeenDate = Date(timeIntervalSince1970: Double(UserDefaults.standard.integer(forKey: NostrData.lastSeenDefaultsKey)))
     }
 }

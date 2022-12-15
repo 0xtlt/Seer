@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import NostrKit
 import RealmSwift
 import AVKit
 import AZVideoPlayer
+import SimpleToast
 
 struct HomeView: View {
     
@@ -18,7 +20,6 @@ struct HomeView: View {
     }
     
     @EnvironmentObject var nostrData: NostrData
-    
     @EnvironmentObject var navigation: Navigation
     
     @ObservedResults(TextNoteVM.self,
@@ -26,8 +27,11 @@ struct HomeView: View {
                                                     ascending: false)) var textNoteResults
     
     var textNotes: [TextNoteVM] {
-        print(textNoteResults.count)
-        return Array(textNoteResults)//Array(textNoteResults.filter("createdAt > %@", date).prefix(100))
+        return Array(textNoteResults.filter("createdAt < %@", nostrData.lastSeenDate).prefix(250))
+    }
+    
+    var newTextNotes: [TextNoteVM] {
+        return Array(textNoteResults.filter("createdAt > %@", nostrData.lastSeenDate))
     }
 
     @State private var textNotesFilter: TextNotesFilter = .global
@@ -50,7 +54,7 @@ struct HomeView: View {
                             .id(textNote.id)
                     }
                 }
-                .scrollIndicators(.hidden)
+                //.scrollIndicators(.hidden)
                 #if os(iOS)
                 .background(Color(UIColor.systemGroupedBackground))
                 #endif
@@ -125,10 +129,20 @@ struct HomeView: View {
     //                }
                     
                 }
+                .simpleToast(isPresented: .constant(newTextNotes.count > 0),
+                             options: SimpleToastOptions(alignment: .top, showBackdrop: false, animation: .spring(), modifierType: .skew), onDismiss: nil) {
+                    NewPostsToastView(avatarUrls: newTextNotes.prefix(3).map({ $0.userProfile?.avatarUrl ?? URL(string: "")! }))
+                        .onTapGesture {
+                            nostrData.updateLastSeenDate()
+                            scrollChange += 1
+                        }
+                    }
                 .onReceive(homeTapped) { (output) in
                     //
                     if !navigation.homePath.isEmpty {
                         navigation.homePath.removeLast()
+                    } else {
+                        NostrData.shared.updateLastSeenDate()
                     }
                     scrollChange += 1
                 }
@@ -298,5 +312,39 @@ struct TextNoteListView: View {
             
         }
 
+    }
+}
+
+struct NewPostsToastView: View {
+    
+    let avatarUrls: [URL]
+    
+    var body: some View {
+        HStack {
+            Image(systemName: "arrow.up")
+            
+            HStack(spacing: -8) {
+                
+                ForEach(avatarUrls, id: \.self.absoluteString) { url in
+                    WebImage(url: url)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 25, height: 25)
+                        .cornerRadius(12.5)
+                }
+
+            }
+            Text("Posted")
+        }
+        .font(.subheadline.bold())
+        .foregroundColor(.white)
+        .padding(.horizontal,  12)
+        .padding(.vertical, 6)
+        .background(
+            Capsule()
+                .foregroundColor(.accentColor)
+        )
+        .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 3)
+        .offset(x: 0, y: 16)
     }
 }
